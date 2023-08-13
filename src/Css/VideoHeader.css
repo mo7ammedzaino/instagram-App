@@ -1,0 +1,11 @@
+.video-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  color: white;
+}
+.video-card__header > * {
+  padding: 20px;
+}

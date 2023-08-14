@@ -1,6 +1,17 @@
+import { useEffect, useState } from "react";
 import "./Css/App.css";
 import VideoCard from "./components/VideoCard";
+import db from "./firebase";
+import { onSnapshot } from "firebase/firestore";
+
 function App(peops) {
+  const [reels, setReels] = useState([]);
+  useEffect(() => {
+    // App Component will run ONCE when it loads
+    db.collection("reels").onSnapshot((snapshot) =>
+      setReels(snapshot.doc.map((doc) => doc.data()))
+    );
+  }, []);
   return (
     // BEM naming convention
 
@@ -13,33 +24,20 @@ function App(peops) {
           src="https://www.logo.wine/a/logo/Instagram/Instagram-Logo.wine.svg"
           alt=""
         />
-
         <h1>reels</h1>
-
-        {/* image at top - logo */}
-        {/* Reels text */}
       </div>
 
       <div className="app__videos">
-        {/* Container of app_videos (scrollable 
-          container)*/}
-
-        <VideoCard
-          channel="clevermohammed"
-          avatarSrc="https://avatars.githubusercontent.com/u/102724971?s=400&u=7af027e2e565b204d9f7518f124a594018484301&v=4"
-          song="Test song ---assa"
-          url="/public/assets/reels.mp4"
-          likes={950}
-          shares={30}
-        />
-        <VideoCard />
-        <VideoCard />
-        <VideoCard />
-
-        {/* <Vedio/>*/}
-        {/* <Vedio/>*/}
-        {/* <Vedio/>*/}
-        {/* <Vedio/>*/}
+        {reels.map(({ channel, avatarSrc, song, url, likes, shares }) => (
+          <VideoCard
+            channel={channel}
+            avatarSrc={avatarSrc}
+            song={song}
+            url={url}
+            likes={likes}
+            shares={shares}
+          />
+        ))}
       </div>
     </div>
   );

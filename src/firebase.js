@@ -1,6 +1,5 @@
-// import { initializeApp } from "firebase/app";
-// import { getFirestore, collection } from "firebase/firestore";
-import firebase from "firebase";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -13,12 +12,8 @@ const firebaseConfig = {
   measurementId: "G-9BHRC79CH5",
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const db = firebaseApp.firestore();
-export default db;
+const firebaseApp = initializeApp(firebaseConfig);
 
-// initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
-// const db = getFirestore();
-
-// export const reelsRef = collection(db, "reels");
+export const reelsRef = collection(db, "reels");

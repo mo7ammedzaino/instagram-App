@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
 import "./Css/App.css";
 import VideoCard from "./components/VideoCard";
-import db from "./firebase";
-import { onSnapshot } from "firebase/firestore";
+import { reelsRef } from "./firebase";
+import { getDocs } from "firebase/firestore";
 
 function App(peops) {
   const [reels, setReels] = useState([]);
-  useEffect(() => {
-    // App Component will run ONCE when it loads
-    db.collection("reels").onSnapshot((snapshot) =>
-      setReels(snapshot.doc.map((doc) => doc.data()))
-    );
-  }, []);
-  return (
-    // BEM naming convention
 
+  useEffect(() => {
+    getDocs(reelsRef)
+      .then((res) => {
+        const docs = res.docs.map((doc) => ({
+          id: doc.id,
+          isPlaying: false,
+          ...doc.data(),
+        }));
+
+        setReels(docs);
+      })
+      .catch((err) => {
+        console.log("ERR:", err);
+      });
+  }, []);
+
+  const onVideoClick = (reelId) => {
+    setReels(
+      reels.map((reel) => ({
+        ...reel,
+        isPlaying: reel.id === reelId ? !reel.isPlaying : false,
+      }))
+    );
+  };
+
+  return (
     <div className="app">
       <h1>Hey Clever Programmer, Let's build an IG Reels Clone 🚀!</h1>
 
@@ -25,19 +43,30 @@ function App(peops) {
           alt=""
         />
         <h1>reels</h1>
+        <h2 className="app__rights">
+          Made With ❤️ By{" "}
+          <a href="https://twitter.com/MohammedZaino21" target="__blank">
+            MohammedZaino21.
+          </a>
+        </h2>
       </div>
 
       <div className="app__videos">
-        {reels.map(({ channel, avatarSrc, song, url, likes, shares }) => (
-          <VideoCard
-            channel={channel}
-            avatarSrc={avatarSrc}
-            song={song}
-            url={url}
-            likes={likes}
-            shares={shares}
-          />
-        ))}
+        {reels.map(
+          ({ id, isPlaying, channel, avatarSrc, song, url, likes, shares }) => (
+            <VideoCard
+              key={id}
+              channel={channel}
+              avatarSrc={avatarSrc}
+              song={song}
+              url={url}
+              likes={likes}
+              shares={shares}
+              isPlaying={isPlaying}
+              onVideoClick={() => onVideoClick(id)}
+            />
+          )
+        )}
       </div>
     </div>
   );

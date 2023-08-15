@@ -3,12 +3,21 @@ import VideoHeader from "./VideoHeader";
 import VideoFooter from "./VideoFooter";
 import Video from "./Video";
 
-function VideoCard({ url, likes, shares, channel, song, avatarSrc }) {
+function VideoCard({
+  url,
+  isPlaying,
+  onVideoClick,
+  likes,
+  shares,
+  channel,
+  song,
+  avatarSrc,
+}) {
   return (
     <div className="videoCard">
       <VideoHeader />
 
-      <Video url={url} />
+      <Video url={url} isPlaying={isPlaying} onVideoClick={onVideoClick} />
 
       <VideoFooter
         channel={channel}

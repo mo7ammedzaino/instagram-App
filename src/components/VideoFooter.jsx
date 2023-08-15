@@ -1,15 +1,10 @@
-import React from "react";
 import "../Css/VideoFooter.css";
 
 import { Button, Avatar } from "@mui/material";
 import { MusicNote } from "@mui/icons-material";
 
 import Ticker from "react-ticker";
-
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import SendIcon from "@mui/icons-material/Send";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { ModeComment, Favorite, Send, MoreHoriz } from "@mui/icons-material";
 
 function VideoFooter({ channel, song, likes, shares, avatarSrc }) {
   return (
@@ -34,18 +29,18 @@ function VideoFooter({ channel, song, likes, shares, avatarSrc }) {
       </div>
       <div className="videoFooter__actions">
         <div className="videoFooter__actionsLeft">
-          <FavoriteIcon fontSize="large" />
-          <ModeCommentIcon fontSize="large" />
-          <SendIcon fontSize="large" />
-          <MoreHorizIcon fontSize="large" />
+          <Favorite fontSize="large" />
+          <ModeComment fontSize="large" />
+          <Send fontSize="large" />
+          <MoreHoriz fontSize="large" />
         </div>
         <div className="videoFooter__actionsRight">
           <div className="videoFooter__stat">
-            <FavoriteIcon />
+            <Favorite />
             <p>{900}</p>
           </div>
           <div className="videoFooter__stat">
-            <ModeCommentIcon />
+            <ModeComment />
             <p>{300}</p>
           </div>
         </div>

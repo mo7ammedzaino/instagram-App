@@ -1,32 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-function Video({ url }) {
-  /* ############ */
-
-  //useState
-  //useRef : stop & play
-
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
+function Video({ url, isPlaying, onVideoClick }) {
   const videoRef = useRef(null);
 
-  const onVideoPress = () => {
-    if (isVideoPlaying) {
-      // stop
-
-      videoRef.current.pause();
-      setIsVideoPlaying(false);
-    } else {
-      // play
-
+  useEffect(() => {
+    if (isPlaying) {
       videoRef.current.play();
-      setIsVideoPlaying(true);
+    } else {
+      videoRef.current.pause();
     }
-  };
+  }, [isPlaying]);
 
   return (
     <video
-      onClick={onVideoPress}
+      ref={videoRef}
+      onClick={onVideoClick}
       className="video-card__video"
       src={url}
       alt="IG reel video"

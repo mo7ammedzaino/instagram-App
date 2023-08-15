@@ -9,9 +9,15 @@ html {
   height: 100vh;
   background-color: black;
 }
-
+.app h1 {
+  color: white;
+  text-align: center;
+}
 .app__top {
-  margin-bottom: -30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -20px;
 }
 
 .app__top > h1 {
